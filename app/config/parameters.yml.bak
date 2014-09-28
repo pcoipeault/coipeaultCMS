@@ -1,0 +1,18 @@
+parameters:
+    database_driver: pdo_mysql
+    database_path: null
+    phpcr_backend: { type: doctrinedbal, connection: default, caches: { meta: doctrine_cache.providers.phpcr_meta, nodes: doctrine_cache.providers.phpcr_nodes } }
+    phpcr_workspace: default
+    phpcr_user: admin
+    phpcr_password: admin
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: 1102c93101617943d67e1b23b6241c10d19
+    database_host: localhost
+    database_port: '3306'
+    database_name: blog
+    database_user: root
+    database_password: ritagahn

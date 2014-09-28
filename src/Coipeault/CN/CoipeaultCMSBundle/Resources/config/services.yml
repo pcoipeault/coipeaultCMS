@@ -1,0 +1,46 @@
+services:
+    coipeault.phpcr.initializer:
+        class:  Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer
+        arguments:
+            -   The Coipeault Initializer
+            -   ['/cms/pages', '/cms/posts', '/cms/routes']
+        tags:
+            -   { name: doctrine_phpcr.initializer }
+            
+    coipeault.admin.page:
+        class:  Coipeault\CN\CoipeaultCMSBundle\Admin\PageAdmin
+        arguments:
+            -   ''
+            -   Coipeault\CN\CoipeaultCMSBundle\Document\Page
+            -   'SonataAdminBundle:CRUD'
+        tags:
+            -   { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: Page }
+        calls:
+            -   [setRouteBuilder, ['@sonata.admin.route.path_info_slashes']]
+            
+    coipeault.admin.blogpost:
+        class:  Coipeault\CN\CoipeaultCMSBundle\Admin\BlogPostAdmin
+        arguments:
+            -   ''
+            -   Coipeault\CN\CoipeaultCMSBundle\Document\BlogPost
+            -   'SonataAdminBundle:CRUD'
+        tags:
+            -   { name: sonata.admin, manager_type: doctrine_phpcr, group: 'Basic CMS', label: BlogPost }
+        calls:
+            -   [setRouteBuilder, ['@sonata.admin.route.path_info_slashes']]
+    
+    coipeault.menu_provider:
+        class:  Symfony\Cmf\Bundle\MenuBundle\Provider\PhpcrMenuProvider
+        arguments:
+            -   '@cmf_menu.factory'
+            -   '@doctrine_phpcr'
+            -   /cms/pages
+        calls:
+            -   [setRequest, ["@?request="]]
+        tags:
+            -   { name: knp_menu.provider }
+            
+    coipeault.phpcr.initializer.site:
+        class:  Coipeault\CN\CoipeaultCMSBundle\Initializer\SiteInitializer
+        tags:
+            -   { name: doctrine_phpcr.initializer }
