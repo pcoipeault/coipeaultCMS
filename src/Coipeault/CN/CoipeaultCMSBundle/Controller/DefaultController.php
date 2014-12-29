@@ -12,7 +12,7 @@ class DefaultController extends Controller {
      * @Route("/")
      */
     public function indexAction() {
-        $dm = $this->get('doctrine_php')->getManager();
+        $dm = $this->get('doctrine_phpcr')->getManager();
         $site = $dm->find('Coipeault\CN\CoipeaultCMSBundle\Document\Site', '/cms');
         $homepage = $site->getHomepage();
         
@@ -27,7 +27,7 @@ class DefaultController extends Controller {
     /**
      * @Route(
      *      name="make_homepage",
-     *      pattern="/_cms/make_homepage/{id}",
+     *      pattern="/cms/make_homepage/{id}",
      *      requirements={"id": ".+"}
      * )
      */
@@ -35,12 +35,15 @@ class DefaultController extends Controller {
         $dm = $this->get('doctrine_phpcr')->getManager();
         
         $site = $dm->find(NULL, '/cms');
-        
+                
         if (!$site)
             throw $this->createNotFoundException ('Could not find /cms document');
         
         $page = $dm->find(NULL, $id);
         
+        if (!$page)
+            throw $this->createNotFoundException ('Could not find page with ID ' . $id);
+
         $site->setHomepage($page);
         $dm->persist($page);
         $dm->flush();
@@ -51,7 +54,7 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @Template()
+     * @Template("CoipeaultCNCoipeaultCMS:Default:page.html.twig")
      */
     public function pageAction($document) {
         $dm = $this->get('doctrine_phpcr')->getManagerForClass('Coipeault');

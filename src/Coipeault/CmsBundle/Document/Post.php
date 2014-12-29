@@ -1,15 +1,18 @@
 <?php
 
-namespace Coipeault\CN\CoipeaultCMSBundle\Document;
+namespace Coipeault\CmsBundle\Document;
 
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
 /**
- * Description of ContentTrait
+ * Description of Post
+ * 
+ * @PHPCR\Document(referenceable=true)
  *
  * @author pako
  */
-trait ContentTrait {
+class Post implements RouteReferrersReadInterface {
     
     /**
      * @PHPCR\Id()
@@ -31,14 +34,30 @@ trait ContentTrait {
      */
     protected $content;
     
-    /**
-     * @PHPCR\Referrers(
-     *      referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route",
-     *      referencedBy="content"
-     * )
-     */
     protected $routes;
+
+    /**
+     * @PHPCR\Date()
+     */
+    protected $date;
     
+    /**
+     * @PHPCR\PrePersist()
+     */
+    public function updateDate() {
+        if (!$this->date)
+            $this->date = new \DateTime ();
+    }
+    
+    public function getDate() {
+        
+        return $this->date;
+    }
+    
+    public function setDate(\DateTime $date) {
+        $this->date = $date;
+    }
+
     public function getId() {
         
         return $this->id;
@@ -75,4 +94,5 @@ trait ContentTrait {
         
         return $this->routes;
     }
+    
 }

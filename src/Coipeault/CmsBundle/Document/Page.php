@@ -1,15 +1,19 @@
 <?php
 
-namespace Coipeault\CN\CoipeaultCMSBundle\Document;
+namespace Coipeault\CmsBundle\Document;
 
+use Knp\Menu\NodeInterface;
 use Doctrine\ODM\PHPCR\Mapping\Annotations as PHPCR;
+use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
 /**
- * Description of ContentTrait
+ * Description of Page
+ * 
+ * @PHPCR\Document(referenceable=true)
  *
  * @author pako
  */
-trait ContentTrait {
+class Page implements RouteReferrersReadInterface, NodeInterface {
     
     /**
      * @PHPCR\Id()
@@ -31,12 +35,6 @@ trait ContentTrait {
      */
     protected $content;
     
-    /**
-     * @PHPCR\Referrers(
-     *      referringDocument="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route",
-     *      referencedBy="content"
-     * )
-     */
     protected $routes;
     
     public function getId() {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Coipeault\CN\CoipeaultCMSBundle\DependencyInjection;
+namespace Coipeault\CmsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,12 +13,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('coipeault_cn_coipeault_cms');
+        $rootNode = $treeBuilder->root('coipeault_cms');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

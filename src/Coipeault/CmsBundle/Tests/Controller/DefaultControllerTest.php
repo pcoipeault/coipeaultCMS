@@ -1,6 +1,6 @@
 <?php
 
-namespace Coipeault\CN\CoipeaultCMSBundle\Tests\Controller;
+namespace Coipeault\CmsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

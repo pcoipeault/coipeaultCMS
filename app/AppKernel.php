@@ -43,6 +43,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Coipeault\CN\CoipeaultCMSBundle\CoipeaultCNCoipeaultCMSBundle(),
+            new Coipeault\CmsBundle\CoipeaultCmsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
